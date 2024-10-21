@@ -1,0 +1,15 @@
+.music-container {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+
+.music-list-box {
+    margin-top: 1.5%;
+}
+
+.music-search-box {
+    margin-top: 1.5%;
+    width: 50%;
+    margin-right: 0;
+}
