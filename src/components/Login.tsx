@@ -4,6 +4,7 @@ import { Button, Form, Input, Card, message } from 'antd';
 import { instance } from "../utils/api";
 import { useNavigate } from 'react-router-dom';
 import LocalStorageUtil from '../utils/LocalStorageUtil';
+import videoplayback from '../assets/video/videoplayback.mp4';
 
 const Login = function ({ onLoginSuccess }) {
     const [loginOrRegister, setLoginOrRegister] = useState(true); // true: login, false: register
@@ -117,7 +118,7 @@ const Login = function ({ onLoginSuccess }) {
                         </Card>
                     </div>
                     <video autoPlay loop muted className="background-video">
-                        <source src="/video/videoplayback.mp4" type="video/mp4" />
+                        <source src={videoplayback} type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
                 </div>
