@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HashRoute as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Home from './components/Home.tsx';
 import Login from './components/Login.tsx';
 import './App.css'

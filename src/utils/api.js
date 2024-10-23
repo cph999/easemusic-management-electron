@@ -2,12 +2,13 @@ import axios from 'axios';
 import LocalStorageUtil from './LocalStorageUtil';
 
 export const instance = axios.create({
-    baseURL: 'https://app102.acapp.acwing.com.cn/api',
-    // baseURL: 'http://localhost:8809/api',
-        // baseURL: 'http://39.100.90.48:8809/api',
+    // baseURL: 'https://app102.acapp.acwing.com.cn/api',
+    baseURL: 'http://localhost:8809/api',
+    // baseURL: 'http://39.100.90.48:8809/api',
 
     headers: {
         'Content-Type': 'application/json',
+        "isS": 1,
     }
 });
 
@@ -18,8 +19,12 @@ instance.interceptors.request.use(
         const userinfo = LocalStorageUtil.getItem('userinfo');
 
         // 如果存在 token，则将其添加到请求头中
-        if (userinfo && userinfo.token) {
-            config.headers['Authorization'] = userinfo.token;
+        // if (userinfo && userinfo.token) {
+        //     config.headers['Authorization'] = userinfo.token;
+        // }
+
+        if (userinfo && userinfo.superToken) {
+            config.headers['Authorization'] = userinfo.superToken;
         }
 
         return config;

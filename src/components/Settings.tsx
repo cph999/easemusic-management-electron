@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import instance from '../utils/api';
-import { Table, Pagination, Input, Button, Popconfirm, message, Drawer, Form, Input as AntdInput } from 'antd';
+import { Table, Pagination, Input, Button, Popconfirm, message, Drawer, Form, Input as AntdInput, Upload, Space } from 'antd';
 import LocalStorageUtil from '../utils/LocalStorageUtil';
+import { UploadOutlined } from '@ant-design/icons';
 import "./Settings.css"
 
 function Settings() {
@@ -12,8 +13,28 @@ function Settings() {
     const [search, setSearch] = useState('');
     const [open, setOpen] = useState(false);
     const [form] = Form.useForm();
-
     const userinfo = LocalStorageUtil.getItem("userinfo");
+
+
+    const props = {
+        name: 'musicsExcel',
+        action: 'http://localhost:8809/api/uploadMusics',
+        headers: {
+            authorization: userinfo.superToken,
+            isS: 1,
+        },
+        onChange(info) {
+            if (info.file.status !== 'uploading') {
+                console.log(info.file, info.fileList);
+            }
+            if (info.file.status === 'done') {
+                message.success(`${info.file.name} 任务导入成功`);
+                fetchData();
+            } else if (info.file.status === 'error') {
+                message.error(`${info.file.name} 上传失败，请联系工作人员！`);
+            }
+        },
+    };
 
     const fetchData = async () => {
         try {
@@ -99,24 +120,32 @@ function Settings() {
     return (
         <div className='settings-container' style={{ padding: '20px' }}>
             <div className='search-bar'>
-                <Input
-                    placeholder="搜索任务"
-                    value={search}
-                    onChange={(e) => {
-                        setSearch(e.target.value);
-                        setPageNum(1); // 搜索时重置页码
-                    }}
-                    style={{ marginBottom: '20px', width: '20%' }}
-                />
+                <Space size="large">
+                    <Input
+                        placeholder="搜索任务"
+                        value={search}
+                        onChange={(e) => {
+                            setSearch(e.target.value);
+                            setPageNum(1); // 搜索时重置页码
+                        }}
+                        style={{ marginBottom: '20px', width: '110%' }}
+                    />
 
-                <Button
-                    type="primary"
-                    style={{ marginBottom: '20px', marginLeft: "5%" }}
-                    onClick={() => setOpen(true)}
+                    <Button
+                        type="primary"
+                        style={{ marginLeft: "5%" }}
+                        onClick={() => setOpen(true)}
 
-                >
-                    新增下载任务
-                </Button>
+                    >
+                        新增下载任务
+                    </Button>
+
+                    <Upload {...props}
+                        maxCount={1}
+                    >
+                        <Button icon={<UploadOutlined />}>批量上传任务</Button>
+                    </Upload>
+                </Space>
             </div>
 
             <Table
@@ -149,7 +178,7 @@ function Settings() {
                 open={open}
                 width={400}
             >
-                <Form form={form} onFinish={handleAdd}>
+                <Form form={form} onFinish={handleAdd} initialValues={{ triggerId: userinfo.id }}>
                     <Form.Item
                         label="歌曲标题"
                         name="title"
@@ -164,7 +193,6 @@ function Settings() {
                         name="artist"
                         labelCol={{ span: 6 }}
                         wrapperCol={{ span: 18 }}
-                        // rules={[{ required: true, message: '请输入艺术家名' }]}
                     >
                         <AntdInput />
                     </Form.Item>
@@ -173,7 +201,6 @@ function Settings() {
                         name="cover"
                         labelCol={{ span: 6 }}
                         wrapperCol={{ span: 18 }}
-                        // rules={[{ required: true, message: '请输入封面链接' }]}
                     >
                         <AntdInput />
                     </Form.Item>
