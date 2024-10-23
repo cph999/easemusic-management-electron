@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import instance from '../utils/api';
-import { Table, Pagination, Input, Button, Popconfirm, message, Drawer, Form, Input as AntdInput, Upload, Space } from 'antd';
+import { Table, Pagination, Input, Button, Popconfirm, message, Drawer, Form, Input as AntdInput, Upload, Flex } from 'antd';
 import LocalStorageUtil from '../utils/LocalStorageUtil';
 import { UploadOutlined } from '@ant-design/icons';
 import "./Settings.css"
@@ -120,7 +120,7 @@ function Settings() {
     return (
         <div className='settings-container' style={{ padding: '20px' }}>
             <div className='search-bar'>
-                <Space size="large">
+                <Flex gap="large" >
                     <Input
                         placeholder="搜索任务"
                         value={search}
@@ -145,7 +145,7 @@ function Settings() {
                     >
                         <Button icon={<UploadOutlined />}>批量上传任务</Button>
                     </Upload>
-                </Space>
+                </Flex>
             </div>
 
             <Table
