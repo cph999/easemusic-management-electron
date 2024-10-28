@@ -1,0 +1,8 @@
+.music-player{
+    display: flex;
+    justify-content: center;
+}
+
+.music-player-icon{
+    font-size: 30px;
+}

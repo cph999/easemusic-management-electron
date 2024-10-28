@@ -8,16 +8,7 @@ import Settings from './Settings.tsx';
 import HomeHeader from './HomeHeader.tsx'
 import "./Home.css"
 
-const { Header, Footer, Sider, Content } = Layout;
-
-
-const contentStyle = {
-    textAlign: 'center',
-    minHeight: 120,
-    lineHeight: '120px',
-    color: '#333',
-    backgroundColor: '#F7F9FC',
-};
+const { Header, Sider, Content } = Layout;
 
 const items = [
     {
@@ -58,7 +49,7 @@ function Home({ handleLogOut }) {
                         items={items}
                     />
                 </Sider>
-                <Content style={contentStyle}>
+                <Content>
                     <Routes>
                         <Route path="music" element={<Music />} />
                         <Route path="user" element={<User />} />
