@@ -20,6 +20,7 @@ const MusicPlayer = ({ currentSong, onNextSong, onPrevSong }) => {
             setPlayState(true); // 设置播放状态为播放
             const interval = setInterval(() => {
                 if (audio && !isNaN(duration) && duration > 0) {
+                    if ((audio.currentTime / duration) * 100 >= 99.5) onNextSong();
                     setPlayProgress((audio.currentTime / duration) * 100);
                 }
             }, 1000);
