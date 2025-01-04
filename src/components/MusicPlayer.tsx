@@ -49,12 +49,12 @@ const MusicPlayer = ({ currentSong, onNextSong, onPrevSong }) => {
     };
 
     const handlePlay = () => {
-        setPlayState(!playState);
-        if (playState) {
+        if (!playState) {
             playerRef.current.audioEl.current.play();
         } else {
             playerRef.current.audioEl.current.pause();
         }
+        setPlayState(!playState);
     };
 
     return (
